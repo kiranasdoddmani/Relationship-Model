@@ -1,0 +1,46 @@
+1. Users collection — stores user details.
+{
+    _id: 101,
+    Username: "Kirana"
+}
+
+
+2. Posts collection — stores posts created by users.
+{
+    content: "I am Java Developer",
+    likes: 600,
+    user: 101
+}
+
+
+Look carefully at user: 101.
+The post stores only the user's ID, not the user's name.
+It's like saying: "This post belongs to the user whose ID is 101."
+Step 2: Fetch a post without populate()
+let posts = await Post.find();
+console.log(posts);
+
+
+You get something like:
+{
+    content: "I am Java Developer",
+    likes: 600,
+    user: 101
+}
+
+
+You know the user's ID, but you don't see the username in the post result.
+Step 3: Fetch a post with populate()
+let posts = await Post.find().populate("user");
+console.log(posts);
+
+
+Now you get something like:
+{
+    content: "I am Java Developer",
+    likes: 600,
+    user: {
+        _id: 101,
+        Username: "Kirana"
+    }
+}
